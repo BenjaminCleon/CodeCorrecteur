@@ -19,38 +19,38 @@ public class Main {
             return new Matrix(data);
     }
     
-    public static void main(String[] arg){
-        
-        byte[][] tab = {{1,0,0},{0,1,0},{0,0,1}};
-        Matrix m = new Matrix(tab);
-        m.display();
-        
+    public static void main(String[] arg){        
         Matrix hbase = loadMatrix("data/matrix-15-20-3-4", 15, 20);
         hbase.display();
 
-        // Exercice 2
-        byte[][] tab_1 = {{1,1,1},{1,1,1}, {1,1,1}};
-        Matrix m_2 = new Matrix(tab_1);
+        Main.exo2();
+        Main.exo3(hbase);
+    }
 
-        // Addition
-        Matrix m_3 = m_2.add(m);
-        m_3.display();
-        System.out.println("Expected:");
-        byte[][] tab_2 = {{0,1,1},{1,0,1}, {1,1,0}};
-        Matrix m_4 = new Matrix(tab_2);
-        m_4.display();
+    public static void exo2() {
+        System.out.println("Exo 2");
+        byte[][] tab = {{1,0,0},{0,1,0},{0,0,1}};
+        byte[][] tab2 = {{1,1,0},{0,0,0},{1,0,1}};
+        Matrix m = new Matrix(tab);
+        Matrix m2 = new Matrix(tab2);
+        m.display();
 
-        // Multiplication
-        Matrix m_5 = m_2.multiply(m_2);
-        m_5.display();
+        // test des fonctions de matrices
+        m.add(m2).display();
+        m.multiply(m2).display();
 
+        m2.display();
+        m2.transpose().display();
+    }
 
-        // Transpo
-        byte[][] tab_3 = {{1,0,0},{0,0,1}, {1,1,0}};
-        Matrix m_6 = new Matrix(tab_3);
-        m_6.display();
-        m_6.transpose();
-        m_6.display();
-
+    public static void exo3(Matrix matrice) {
+        System.out.println("Exo 3");
+        matrice.display();
+        System.out.println("Add row");
+        matrice.addRow(3, 4);
+        matrice.display();
+        System.out.println("Add col");
+        matrice.addCol(1, 2);
+        matrice.display();
     }
 }

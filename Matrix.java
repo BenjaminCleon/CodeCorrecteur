@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 
+
 public class Matrix {
     private byte[][] data = null;
     private int rows = 0, cols = 0;
@@ -132,19 +133,18 @@ public class Matrix {
         return r;
     }
 
-    public void AddRow(int a, int b) {
+    public void addRow(int a, int b)
+    {
+        if ( !(a >= 0 && b >=0 && a < this.rows && b < this.rows) )return;
         
     }
 
-    public void AddCol(int a, int b) {
+    public void addCol(int a, int b)
+    {
+        if ( !(a >= 0 && b >=0 && a < this.cols && b < this.cols) )return;
         
-    }
-
-    public Matrix sysTransform() {
-        Matrix r = new Matrix(this.rows,this.cols);
-        
-
-        return r;
+        for (int i = 0; i < this.rows; i++)
+            this.data[i][b] = (byte) ((this.data[i][a] + this.data[i][b]) % 2);
     }
 }
 
