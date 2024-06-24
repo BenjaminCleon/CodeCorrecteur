@@ -146,5 +146,40 @@ public class Matrix {
         for (int i = 0; i < this.rows; i++)
             this.data[i][b] = (byte) ((this.data[i][a] + this.data[i][b]) % 2);
     }
+
+    public Matrix sysTransform() {
+        Matrix r = new Matrix(this.data);
+
+        // Descente
+        for (int i = 1; i < r.rows; i++) {
+            int j = r.cols - r.rows + i;
+            boolean permutation = false;
+            for (int i_p = i; i < r.rows; i_p ++) {
+                // Permutation
+                if (r.getElem(i, j) == 1 && !permutation) {
+                    r.shiftRow(i, i_p);
+                    permutation = true;
+                }
+
+                // Add
+                if (i_p > i && r.getElem(i_p, j) == 1) {
+                   r.addRow(i_p, i); 
+                }
+            }
+        }
+
+        // Remontée
+        for (int i = r.cols; i >= 1; i--) {
+            int j = r.cols - r.rows + i;
+            for (int i_p = i; i > 0; i_p --) {
+                // Add
+                if (i_p > i && r.getElem(i_p, j) == 1) {
+                   r.addRow(i_p, i); 
+                }
+            }
+        }
+
+        return r;
+    }
 }
 
