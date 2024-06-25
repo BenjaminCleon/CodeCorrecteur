@@ -118,6 +118,9 @@ public class Matrix {
     public Matrix multiply(Matrix m){
         Matrix r = new Matrix(rows,m.cols);
         
+        this.display();
+        m.display();
+
         if (m.rows != cols)
             System.out.printf("Erreur de multiplication\n");
         
@@ -161,7 +164,7 @@ public class Matrix {
         {
             for (int nb_col=0;nb_col<generatrice.cols;nb_col++)
             {
-                if      (nb_col >= nb_ligne + k) generatrice.data[nb_ligne][nb_col] = thisTranspose.data[nb_ligne][nb_col-k];
+                if      (nb_col >= nb_ligne + k          ) generatrice.data[nb_ligne][nb_col] = thisTranspose.data[nb_ligne][nb_col-k];
                 else if (nb_col == nb_ligne && nb_col < k) generatrice.data[nb_ligne][nb_col] = 1;
             }
         }
