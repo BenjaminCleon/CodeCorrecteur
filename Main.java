@@ -21,16 +21,23 @@ public class Main {
     
     public static void main(String[] arg){        
         Matrix hbase = loadMatrix("data/matrix-15-20-3-4", 15, 20);
+        byte[][] hSystematique = {{1,0,0,0,0,1},
+                                  {0,1,0,1,1,0},
+                                  {0,0,1,0,1,1}};
+                                  
         hbase.display();
 
         Main.exo2();
         Main.exo3(hbase);
+
+        Main.exo5(new Matrix(hSystematique));
     }
 
     public static void exo2() {
         System.out.println("Exo 2");
         byte[][] tab = {{1,0,0},{0,1,0},{0,0,1}};
         byte[][] tab2 = {{1,1,0},{0,0,0},{1,0,1}};
+        
         Matrix m = new Matrix(tab);
         Matrix m2 = new Matrix(tab2);
         m.display();
@@ -41,6 +48,7 @@ public class Main {
 
         m2.display();
         m2.transpose().display();
+
     }
 
     public static void exo3(Matrix matrice) {
@@ -52,5 +60,13 @@ public class Main {
         System.out.println("Add col");
         matrice.addCol(1, 2);
         matrice.display();
+    }
+
+    public static void exo5(Matrix matrice)
+    {
+        System.out.println("Exo 5");
+        matrice.display();
+        Matrix genMatrix = matrice.genG();
+        genMatrix.display();
     }
 }
