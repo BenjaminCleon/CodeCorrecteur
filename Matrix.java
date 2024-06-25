@@ -136,7 +136,7 @@ public class Matrix {
     public void addRow(int a, int b)
     {
         if ( !(a >= 0 && b >=0 && a < this.rows && b < this.rows) )return;
-        
+
         for (int i = 0; i < this.cols; i++)
             this.data[b][i] = (byte) ((this.data[a][i] + this.data[b][i]) % 2);
     }
@@ -153,21 +153,56 @@ public class Matrix {
     {
         int k = this.cols - this.rows;
         int n = this.cols;
-        Matrix generatrice = new Matrix(n-k, (n-k)*2);
+        Matrix generatrice = new Matrix(k, n);
         Matrix thisTranspose = this.transpose();
-       
+
         // construction de la matrice génératrice
         for (int nb_ligne=0;nb_ligne<generatrice.rows;nb_ligne++)
         {
             for (int nb_col=0;nb_col<generatrice.cols;nb_col++)
             {
-                if      (nb_col < k            ) generatrice.data[nb_ligne][nb_col] = thisTranspose.data[nb_ligne+k][nb_col];
-                else if (nb_col == nb_ligne + k) generatrice.data[nb_ligne][nb_col] = 1;
+                if      (nb_col >= nb_ligne + k) generatrice.data[nb_ligne][nb_col] = thisTranspose.data[nb_ligne][nb_col-k];
+                else if (nb_col == nb_ligne && nb_col < k) generatrice.data[nb_ligne][nb_col] = 1;
             }
         }
 
-
         return generatrice;
+    }
+
+    public Matrix sysTransform() {
+        Matrix r = new Matrix(this.data);
+
+        // Descente
+        for (int i = 0; i < r.rows; i++) {
+            int j = r.cols - r.rows + i;
+            boolean permutation = false;
+            for (int i_p = i; i_p < r.rows; i_p ++) {
+
+                // Permutation
+                if (r.getElem(i_p, j) == 1 && !permutation && i_p != i) {
+                    r.shiftRow(i, i_p);
+                    permutation = true;
+                }
+
+                // Add
+                if (i_p > i && r.getElem(i_p, j) == 1 && permutation) {
+                    r.addRow(i, i_p); 
+                }
+            }
+        }
+
+        // Remontée
+        for (int i = r.rows - 1; i >= 0; i--) {
+            int j = r.cols - r.rows + i;
+            for (int i_p = i; i_p >= 0; i_p--) {
+                // Add
+                if (i_p < i && r.getElem(i_p, j) == 1) {
+                   r.addRow(i, i_p); 
+                }
+            }
+        }
+
+        return r;
     }
 }
 

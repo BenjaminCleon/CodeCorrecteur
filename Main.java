@@ -27,6 +27,9 @@ public class Main {
                                   
         hbase.display();
 
+        Matrix transformed = hbase.sysTransform();
+        transformed.display();
+
         Main.exo2();
         Main.exo3(hbase);
 
