@@ -136,7 +136,9 @@ public class Matrix {
     public void addRow(int a, int b)
     {
         if ( !(a >= 0 && b >=0 && a < this.rows && b < this.rows) )return;
-        
+
+        for (int i = 0; i < this.cols; i++)
+            this.data[b][i] = (byte) ((this.data[a][i] + this.data[b][i]) % 2);
     }
 
     public void addCol(int a, int b)
@@ -151,30 +153,31 @@ public class Matrix {
         Matrix r = new Matrix(this.data);
 
         // Descente
-        for (int i = 1; i < r.rows; i++) {
+        for (int i = 0; i < r.rows; i++) {
             int j = r.cols - r.rows + i;
             boolean permutation = false;
-            for (int i_p = i; i < r.rows; i_p ++) {
+            for (int i_p = i; i_p < r.rows; i_p ++) {
+
                 // Permutation
-                if (r.getElem(i, j) == 1 && !permutation) {
+                if (r.getElem(i_p, j) == 1 && !permutation && i_p != i) {
                     r.shiftRow(i, i_p);
                     permutation = true;
                 }
 
                 // Add
-                if (i_p > i && r.getElem(i_p, j) == 1) {
-                   r.addRow(i_p, i); 
+                if (i_p > i && r.getElem(i_p, j) == 1 && permutation) {
+                    r.addRow(i, i_p); 
                 }
             }
         }
 
         // Remontée
-        for (int i = r.cols; i >= 1; i--) {
+        for (int i = r.rows - 1; i >= 0; i--) {
             int j = r.cols - r.rows + i;
-            for (int i_p = i; i > 0; i_p --) {
+            for (int i_p = i; i_p >= 0; i_p--) {
                 // Add
-                if (i_p > i && r.getElem(i_p, j) == 1) {
-                   r.addRow(i_p, i); 
+                if (i_p < i && r.getElem(i_p, j) == 1) {
+                   r.addRow(i, i_p); 
                 }
             }
         }

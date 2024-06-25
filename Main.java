@@ -23,6 +23,9 @@ public class Main {
         Matrix hbase = loadMatrix("data/matrix-15-20-3-4", 15, 20);
         hbase.display();
 
+        Matrix transformed = hbase.sysTransform();
+        transformed.display();
+
         Main.exo2();
         Main.exo3(hbase);
     }
