@@ -168,12 +168,14 @@ public class Matrix {
         Matrix generatrice = new Matrix(k, n);
         Matrix thisTranspose = this.transpose();
 
+        System.out.println("Transpose");
+        this.transpose().display();
         // construction de la matrice génératrice
         for (int nb_ligne=0;nb_ligne<generatrice.rows;nb_ligne++)
         {
             for (int nb_col=0;nb_col<generatrice.cols;nb_col++)
             {
-                if      (nb_col >= nb_ligne + k          ) generatrice.data[nb_ligne][nb_col] = thisTranspose.data[nb_ligne][nb_col-k];
+                if      (nb_col >= k                     ) generatrice.data[nb_ligne][nb_col] = thisTranspose.data[nb_ligne][nb_col-k];
                 else if (nb_col == nb_ligne && nb_col < k) generatrice.data[nb_ligne][nb_col] = 1;
             }
         }

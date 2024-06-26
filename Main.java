@@ -34,7 +34,7 @@ public class Main {
 
         //Main.exo7(hbase);
     
-        //Main.exo9(Main.exo6(hbase), hbase);
+        Main.exo9(Main.exo6(hbase), hbase);
     }
 
     public static void exo7(Matrix matrice)
@@ -141,7 +141,9 @@ public class Main {
             System.out.println("D" + i);
             TGraph taner = new TGraph(h, 3,4);
 
-            //taner.decode(yTab[i], 100).display();
+            code.display();
+            yTab[i].display();
+            taner.decode(yTab[i], 100).display();
         }
     }
 
@@ -160,6 +162,6 @@ public class Main {
 
     public static void exo12(Matrix h)
     {
-        
+
     }
 }
