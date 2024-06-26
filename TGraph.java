@@ -76,20 +76,19 @@ public class TGraph
         HashMap<Byte, Integer> count = new HashMap<Byte, Integer>();
 
         for (int N = 0; N < this.n_c; N++) {
-            this.right[N][0] = returned_code.getElem(0, N);
+            this.right[N][0] = code.getElem(0, N);
         }
 
         for (int c = 0; c < rounds; c++) {
             boolean syndrom_is_correct = true;
 
             for (int i = 0; i < this.n_r; i++) {
-                syndrom_is_correct = true;
                 this.left[i][0] = 0;
-                for (int j = 0; j < this.w_r + 1; j++) {
+                for (int j = 1; j < this.w_r + 1; j++) {
                     int K_val = this.right[(int) this.left[i][j]][0];
-                    this.left[i][0] = K_val + this.left[i][0] % 2;
+                    this.left[i][0] = (K_val + this.left[i][0]) % 2;
                 }
-                if (this.left[i][0] == 1) {
+                if (this.left[i][0] == 1 && syndrom_is_correct) {
                     syndrom_is_correct = false;
                 }
                 
@@ -111,6 +110,7 @@ public class TGraph
                     int count_value = count.get((byte) i) + this.left[index_in_left][0];
                     count.put((byte) i, count_value);
                 }
+
                 if (count.get((byte) i) > max) {
                     max = count.get((byte) i);
                     i_max = i;
