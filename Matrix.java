@@ -207,5 +207,10 @@ public class Matrix {
 
         return r;
     }
+
+    public Matrix errGen(int w)
+    {
+        return null;
+    }
 }
 
