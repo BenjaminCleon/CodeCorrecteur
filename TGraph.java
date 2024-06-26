@@ -107,8 +107,8 @@ public class TGraph
             for (int i = 0; i < this.n_c; i++) {
                 count.put((byte) i, 0);
                 for (int j = 0; j < this.w_c + 1; j++) {
-                    int index_in_right = this.left[i][j];
-                    int count_value = count.get((byte) i) + this.right[index_in_right][0];
+                    int index_in_left = this.right[i][j];
+                    int count_value = count.get((byte) i) + this.left[index_in_left][0];
                     count.put((byte) i, count_value);
                 }
                 if (count.get((byte) i) > max) {
