@@ -20,6 +20,15 @@ public class Matrix {
             for (int j = 0 ; j < cols ; j ++) 
                 data[i][j] = tab[i][j];
     }
+
+    public Matrix(Matrix matrix) {
+        rows = matrix.data.length;
+        cols = matrix.data[0].length;
+        data = new byte[rows][cols];
+        for (int i = 0 ; i < rows ; i ++)
+            for (int j = 0 ; j < cols ; j ++) 
+                data[i][j] = matrix.data[i][j];
+    }
     
     public int getRows() {
         return rows;
