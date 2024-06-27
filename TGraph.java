@@ -124,7 +124,10 @@ public class TGraph
         for (int i = 0; i < returned_code.getCols(); i++) {
             returned_code.setElem(0, i, (byte) -1);
         }
+
+
         return returned_code;
+
 
 
     }

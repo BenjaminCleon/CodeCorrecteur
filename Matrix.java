@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.sql.Time;
 
 
 public class Matrix {
@@ -127,11 +128,8 @@ public class Matrix {
     public Matrix multiply(Matrix m){
         Matrix r = new Matrix(rows,m.cols);
         
-        this.display();
-        m.display();
-
         if (m.rows != cols)
-            System.out.printf("Erreur de multiplication\n");
+            System.out.println("Erreur de multiplication\n");
         
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < m.cols; j++) {
@@ -168,8 +166,6 @@ public class Matrix {
         Matrix generatrice = new Matrix(k, n);
         Matrix thisTranspose = this.transpose();
 
-        System.out.println("Transpose");
-        this.transpose().display();
         // construction de la matrice génératrice
         for (int nb_ligne=0;nb_ligne<generatrice.rows;nb_ligne++)
         {
@@ -219,9 +215,50 @@ public class Matrix {
         return r;
     }
 
+    public static Matrix getSymptome(Matrix h, Matrix x)
+    {
+        return h.multiply(x.transpose());
+    }
+
     public Matrix errGen(int w)
     {
-        return null;
+        Random rand = new Random();
+        Matrix err = new Matrix(1, this.cols);
+
+        // calculate the time of function
+
+        for (int i=0;i < w;i++) {
+            int index = rand.nextInt(this.cols);
+            if (err.getElem(0, index) == 0) 
+            {
+                err.setElem(0, index, (byte) 1);
+                i++;
+            }
+        }
+
+        return err;
+    }
+
+    /*
+     * equals method
+     */
+    @Override
+    public boolean equals(Object matrix)
+    {
+        if (matrix == null || !(matrix instanceof Matrix))
+            return false;
+
+        Matrix toCompareMatrix = (Matrix) matrix;
+
+        if (this.rows != toCompareMatrix.rows || this.cols != toCompareMatrix.cols)
+            return false;
+
+        for (int i = 0; i < this.rows; i++)
+            for (int j = 0; j < this.cols; j++)
+                if (this.data[i][j] != toCompareMatrix.data[i][j])
+                    return false;
+
+        return true;
     }
 }
 
